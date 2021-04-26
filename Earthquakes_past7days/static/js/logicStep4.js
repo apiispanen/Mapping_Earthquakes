@@ -17,28 +17,20 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/mapbox/sate
     maxZoom: 18,
     accessToken: API_KEY
 });
+// Create a base layer that holds both maps.
+let baseMaps = {
+  "Streets": streets,
+  "Satellite": satelliteStreets
+};
 // Create the map object with center, zoom level and default layer.
 let map = L.map('mapid', {
   center: [39.5, -98.5],
   zoom: 3,
   layers: [streets]
 })
-// Create a base layer that holds both maps.
-let baseMaps = {
-  "Streets": streets,
-  "Satellite": satelliteStreets
-};
 
-let earthquakes = new L.layerGroup();
-// We define an object that contains the overlays.
-// This overlay will be visible all the time.
-let overlays = {
-  Earthquakes: earthquakes
-};
-// Then we add a control to the map that will allow the user to change
-// which layers are visible.
-L.control.layers(baseMaps, overlays).addTo(map);
-
+// Pass our map layers into our layers control and add the layers control to the map.
+L.control.layers(baseMaps).addTo(map);
 
 function getRadius(magnitude) {
   if (magnitude === 0) {
@@ -92,8 +84,5 @@ style: styleInfo,
   onEachFeature: function(feature, layer) {
   layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
 }
-}).addTo(earthquakes);
-
-earthquakes.addTo(map);
-
+}).addTo(map);
 });
