@@ -16,7 +16,6 @@ Your approach will be to use the JavaScript and the D3.js library to retrieve th
   - GeoJSON
   - D3
   - Leaflet
-  - 
 
 - Earthquake Data From: https://earthquake.usgs.gov
 
